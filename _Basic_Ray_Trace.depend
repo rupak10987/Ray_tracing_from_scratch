@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1664606266 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\vec3.cpp
+	"Vec3.h"
+
+1664606140 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\vec3.h
+	<iostream>
+
+1664628067 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
+	<iostream>
+	<vector>
+	<math.h>
+	<graphics.h>
+	"Vec3.h"
+	"sphere.h"
+	"Col.h"
+
+1664604395 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\sphere.cpp
+	"sphere.h"
+
+1664604219 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\sphere.h
+	"Vec3.h"
+	"Col.h"
+
+1664604373 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\col.h
+
+1664604143 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\col.cpp
+	"Col.h"
+
