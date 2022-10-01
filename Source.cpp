@@ -57,11 +57,11 @@ int main()
 
     //adding lights to scene phong reflection model
     class Vec3 l(-2, 1, 0);
-    class Light_Source* point_l=new Light_Source(0.6,point,l);
+    class Light_Source* point_l=new Light_Source(0.0,point,l);
     l.x=0;l.y=0;l.z=0;
     class Light_Source* ambient_l=new Light_Source(0.5,ambient,l);
     l.x=1;l.y=4;l.z=4;
-    class Light_Source* directional_l=new Light_Source(0.2,directional,l);
+    class Light_Source* directional_l=new Light_Source(1,directional,l);
     Lights.push_back(point_l);
     Lights.push_back(ambient_l);
     Lights.push_back(directional_l);
