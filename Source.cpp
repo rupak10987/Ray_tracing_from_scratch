@@ -5,6 +5,7 @@
 #include"Vec3.h"
 #include"sphere.h"
 #include"Col.h"
+#include"Light_Source.h"
 using namespace std;
 struct solution_T
 {
@@ -17,6 +18,7 @@ struct pixel
     int Y;
 };
 vector<class sphere*> SPHERES;
+vector<class Light_Source*> Lights;
 class Col Back_ground_color(200,200,200);
 class Vec3 O(0,0,0);
 double inf=100.0000000;
@@ -28,6 +30,7 @@ struct solution_T intersect_ray_sphere(class Vec3 O, class Vec3 D,class sphere* 
 class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max);
 class Vec3 CanvasToViewport(int x, int y);
 struct pixel screen_pos(int px,int py,int width,int height);
+double calculate_light(class Vec3 N,class Vec3 P);
 int main()
 {   //sphere1
     class Col col1(255,100,100);
@@ -50,6 +53,19 @@ int main()
     SPHERES.push_back(sph3);
     delete &col3;//RELEASING memory
     delete &C3;//RELEASING memory
+
+
+    //adding lights to scene phong reflection model
+    class Vec3 l(-2, 1, 0);
+    class Light_Source* point_l=new Light_Source(0.6,point,l);
+    l.x=0;l.y=0;l.z=0;
+    class Light_Source* ambient_l=new Light_Source(0.5,ambient,l);
+    l.x=1;l.y=4;l.z=4;
+    class Light_Source* directional_l=new Light_Source(0.2,directional,l);
+    Lights.push_back(point_l);
+    Lights.push_back(ambient_l);
+    Lights.push_back(directional_l);
+
 
 //rendering part
     int gd = DETECT, gm, color;
@@ -110,9 +126,59 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
     {
         return Back_ground_color;
     }
-    return closest_sphere->sph_color;
+    class Vec3 P;
+    P=O.addition_Vec(O,O.Scaler_Mul_Vec(closest_t,D));
+    class Vec3 N;
+    N=N.Direction_Vec(P,closest_sphere->Center);
+    N=N.Scaler_Div_Vec(sqrt(N.DOT_PRODUCT(N,N)),N);
+    class Vec3 cc;
+    class Vec3 col_to_vec;
+    col_to_vec.x=closest_sphere->sph_color.r;
+    col_to_vec.y=closest_sphere->sph_color.g;
+    col_to_vec.z=closest_sphere->sph_color.b;
+    cc=N.Scaler_Mul_Vec(calculate_light(N,P),col_to_vec);
+
+    class Col new_col;
+    new_col.r=(int)ceil(cc.x);
+    new_col.g=(int)ceil(cc.y);
+    new_col.b=(int)ceil(cc.z);
+    return new_col;
+
+    //return closest_sphere->sph_color;
 
 }
+
+double calculate_light(class Vec3 N,class Vec3 P)
+{
+double intense=0;
+for(int i=0;i<3;i++)//point+ambient+directional
+{
+if(Lights[i]->type==ambient)
+{
+    intense+=Lights[i]->intensity;
+}
+else
+{
+    class Vec3 L;
+    if(Lights[i]->type==point)
+    {
+    L=L.Direction_Vec(Lights[i]->pos,P);
+    }
+    else
+    {
+    L=Lights[i]->pos;
+    }
+    double n_dot_l=L.DOT_PRODUCT(N,L);
+    if(n_dot_l>0)
+    {
+        intense+=Lights[i]->intensity * (n_dot_l/(sqrt(N.DOT_PRODUCT(N,N))*sqrt(L.DOT_PRODUCT(L,L))));
+    }
+}
+
+}
+return intense;
+}
+
 class Vec3 CanvasToViewport(int x, int y)
 {
     class Vec3 view((x*view_port_W)/500, (y*view_port_H)/500, 1);
@@ -125,4 +191,5 @@ struct pixel screen_pos(int px,int py,int width,int height)
     return p;
 
 }
+
 

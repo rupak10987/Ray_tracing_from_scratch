@@ -1,8 +1,5 @@
 #ifndef VEC3_H
 #define VEC3_H
-#include<iostream>
-using namespace std;
-
 class Vec3
 {
     public:
@@ -15,6 +12,9 @@ class Vec3
         double DOT_PRODUCT(class Vec3* A,class Vec3* B);
         double DOT_PRODUCT(class Vec3 A,class Vec3 B);
         class Vec3 Direction_Vec(class Vec3 target,class Vec3 from);
+        class Vec3 addition_Vec(class Vec3 target,class Vec3 from);
+        class Vec3 Scaler_Mul_Vec(double a,class Vec3 from);
+        class Vec3 Scaler_Div_Vec(double a,class Vec3 from);
 
 
     protected:
