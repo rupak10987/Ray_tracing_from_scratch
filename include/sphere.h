@@ -10,6 +10,7 @@ class sphere
         double Radious;
         class Vec3 Center;
         class Col sph_color;
+        double specular;
     protected:
 
     private:

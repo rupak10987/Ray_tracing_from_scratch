@@ -4,7 +4,7 @@
 
 1664645617 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\vec3.h
 
-1664652359 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
+1664693756 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
 	<iostream>
 	<vector>
 	<math.h>
@@ -14,10 +14,10 @@
 	"Col.h"
 	"Light_Source.h"
 
-1664604395 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\sphere.cpp
+1664693929 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\sphere.cpp
 	"sphere.h"
 
-1664604219 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\sphere.h
+1664692281 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\sphere.h
 	"Vec3.h"
 	"Col.h"
 

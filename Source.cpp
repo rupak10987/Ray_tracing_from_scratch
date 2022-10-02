@@ -30,7 +30,7 @@ struct solution_T intersect_ray_sphere(class Vec3 O, class Vec3 D,class sphere* 
 class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max);
 class Vec3 CanvasToViewport(int x, int y);
 struct pixel screen_pos(int px,int py,int width,int height);
-double calculate_light(class Vec3 N,class Vec3 P);
+double calculate_light(class Vec3 N,class Vec3 P,class Vec3 V,double s);
 int main()
 {   //sphere1
     class Col col1(255,100,100);
@@ -43,6 +43,7 @@ int main()
     class Col col2(100,255,100);
     class Vec3 C2(2, 0, 4);
     class sphere *sph2=new sphere(1,C2,col2);
+    sph2->specular=-1;
     SPHERES.push_back(sph2);
     delete &col2;//RELEASING memory
     delete &C2;//RELEASING memory
@@ -136,8 +137,10 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
     col_to_vec.x=closest_sphere->sph_color.r;
     col_to_vec.y=closest_sphere->sph_color.g;
     col_to_vec.z=closest_sphere->sph_color.b;
-    cc=N.Scaler_Mul_Vec(calculate_light(N,P),col_to_vec);
 
+    class Vec3 V;
+    V=V.Direction_Vec(O,D);
+    cc=N.Scaler_Mul_Vec(calculate_light(N,P,V,closest_sphere->specular),col_to_vec);
     class Col new_col;
     new_col.r=(int)ceil(cc.x);
     if(new_col.r>255)
@@ -154,7 +157,7 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
 
 }
 
-double calculate_light(class Vec3 N,class Vec3 P)
+double calculate_light(class Vec3 N,class Vec3 P,class Vec3 V,double s)
 {
 double intense=0;
 for(int i=0;i<3;i++)//point+ambient+directional
@@ -178,6 +181,16 @@ else
     if(n_dot_l>0)
     {
         intense+=(Lights[i]->intensity * n_dot_l)/(sqrt(N.DOT_PRODUCT(N,N))*sqrt(L.DOT_PRODUCT(L,L)));
+    }
+
+    //specular calculatins
+    if(s!=-1)
+    {
+        class Vec3 R;
+        R=R.Direction_Vec(R.Scaler_Mul_Vec(2*R.DOT_PRODUCT(N,L),N),L);
+        double r_dot_v=R.DOT_PRODUCT(R,V);
+        intense+=Lights[i]->intensity*pow(r_dot_v/(sqrt(R.DOT_PRODUCT(R,R))*sqrt(R.DOT_PRODUCT(V,V))),s);
+
     }
 }
 
