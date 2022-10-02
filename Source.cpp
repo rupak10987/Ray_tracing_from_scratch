@@ -56,12 +56,12 @@ int main()
 
 
     //adding lights to scene phong reflection model
-    class Vec3 l(-2, 1, 0);
-    class Light_Source* point_l=new Light_Source(0.0,point,l);
+    class Vec3 l(2, 1, 0);
+    class Light_Source* point_l=new Light_Source(0.9,point,l);
     l.x=0;l.y=0;l.z=0;
     class Light_Source* ambient_l=new Light_Source(0.5,ambient,l);
-    l.x=1;l.y=4;l.z=4;
-    class Light_Source* directional_l=new Light_Source(1,directional,l);
+    l.x=-5;l.y=4;l.z=4;
+    class Light_Source* directional_l=new Light_Source(0.8,directional,l);
     Lights.push_back(point_l);
     Lights.push_back(ambient_l);
     Lights.push_back(directional_l);
@@ -140,8 +140,14 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
 
     class Col new_col;
     new_col.r=(int)ceil(cc.x);
+    if(new_col.r>255)
+        new_col.r=255;
     new_col.g=(int)ceil(cc.y);
+    if(new_col.g>255)
+        new_col.g=255;
     new_col.b=(int)ceil(cc.z);
+    if(new_col.b>255)
+        new_col.b=255;
     return new_col;
 
     //return closest_sphere->sph_color;
@@ -171,7 +177,7 @@ else
     double n_dot_l=L.DOT_PRODUCT(N,L);
     if(n_dot_l>0)
     {
-        intense+=Lights[i]->intensity * (n_dot_l/(sqrt(N.DOT_PRODUCT(N,N))*sqrt(L.DOT_PRODUCT(L,L))));
+        intense+=(Lights[i]->intensity * n_dot_l)/(sqrt(N.DOT_PRODUCT(N,N))*sqrt(L.DOT_PRODUCT(L,L)));
     }
 }
 
