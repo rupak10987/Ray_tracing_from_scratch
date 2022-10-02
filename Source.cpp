@@ -1,4 +1,3 @@
-#include<iostream>
 #include<vector>
 #include<math.h>
 #include<graphics.h>
@@ -6,7 +5,6 @@
 #include"sphere.h"
 #include"Col.h"
 #include"Light_Source.h"
-using namespace std;
 struct solution_T
 {
     double t1;
@@ -17,8 +15,8 @@ struct pixel
     int X;
     int Y;
 };
-vector<class sphere*> SPHERES;
-vector<class Light_Source*> Lights;
+std::vector<class sphere*> SPHERES;
+std::vector<class Light_Source*> Lights;
 class Col Back_ground_color(200,200,200);
 class Vec3 O(0,0,0);
 double inf=100.0000000;
@@ -43,7 +41,7 @@ int main()
     class Col col2(100,255,100);
     class Vec3 C2(2, 0, 4);
     class sphere *sph2=new sphere(1,C2,col2);
-    sph2->specular=-1;
+    sph2->specular=-1;//-1 for not specular
     SPHERES.push_back(sph2);
     delete &col2;//RELEASING memory
     delete &C2;//RELEASING memory
