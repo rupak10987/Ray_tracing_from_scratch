@@ -15,9 +15,14 @@ struct pixel
     int X;
     int Y;
 };
+struct Shadow_elem
+{
+    class sphere* sph;
+    double closest_TT;
+};
 std::vector<class sphere*> SPHERES;
 std::vector<class Light_Source*> Lights;
-class Col Back_ground_color(200,200,200);
+class Col Back_ground_color(255,255,255);
 class Vec3 O(0,0,0);
 double inf=100.0000000;
 double view_port_W=1;
@@ -29,6 +34,7 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max);
 class Vec3 CanvasToViewport(int x, int y);
 struct pixel screen_pos(int px,int py,int width,int height);
 double calculate_light(class Vec3 N,class Vec3 P,class Vec3 V,double s);
+struct Shadow_elem Closest_inersection(class Vec3 O,class Vec3 D,double t_min,double t_max);
 int main()
 {   //sphere1
     class Col col1(255,100,100);
@@ -52,6 +58,14 @@ int main()
     SPHERES.push_back(sph3);
     delete &col3;//RELEASING memory
     delete &C3;//RELEASING memory
+    //sphere4
+    class Col col4(100,100,100);
+    class Vec3 C4(0, -5001, 0);
+    class sphere *sph4=new sphere(5000,C4,col4);
+    SPHERES.push_back(sph4);
+    delete &col4;//RELEASING memory
+    delete &C4;//RELEASING memory
+
 
 
     //adding lights to scene phong reflection model
@@ -103,11 +117,12 @@ t.t1 = (-b +sqrt(discriminant)) / (2*a);
 t.t2 = (-b -sqrt(discriminant)) / (2*a);
 return t;
 }
-class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
+
+struct Shadow_elem Closest_inersection(class Vec3 O,class Vec3 D,double t_min,double t_max)
 {
     double closest_t=inf;
     class sphere *closest_sphere=nullptr;
-    for(int i=0;i<3;i++)
+    for(int i=0;i<4;i++)
     {
         solution_T t=intersect_ray_sphere(O,D,SPHERES[i]);
         if (t.t1>t_min && t.t1<t_max && t.t1<closest_t)
@@ -121,6 +136,15 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
             closest_sphere=SPHERES[i];
         }
     }
+   struct Shadow_elem shadow={closest_sphere,closest_t} ;
+   return shadow;
+};
+
+class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
+{
+    struct Shadow_elem my_shadow=Closest_inersection(O,D,t_min,t_max);
+    double closest_t=my_shadow.closest_TT;
+    class sphere *closest_sphere=my_shadow.sph;
     if(closest_sphere==nullptr)
     {
         return Back_ground_color;
@@ -166,15 +190,25 @@ if(Lights[i]->type==ambient)
 }
 else
 {
+    double t_max;
     class Vec3 L;
     if(Lights[i]->type==point)
     {
     L=L.Direction_Vec(Lights[i]->pos,P);
+    t_max=1;
     }
     else
     {
     L=Lights[i]->pos;
+    t_max=inf;
     }
+    //shadow
+    struct Shadow_elem m_shadow=Closest_inersection(P,L,0.001,t_max);
+    if(m_shadow.sph!=nullptr)
+    {
+        continue;
+    }
+
     double n_dot_l=L.DOT_PRODUCT(N,L);
     if(n_dot_l>0)
     {
@@ -182,14 +216,16 @@ else
     }
 
     //specular calculatins
+
     if(s!=-1)
     {
         class Vec3 R;
         R=R.Direction_Vec(R.Scaler_Mul_Vec(2*R.DOT_PRODUCT(N,L),N),L);
         double r_dot_v=R.DOT_PRODUCT(R,V);
         intense+=Lights[i]->intensity*pow(r_dot_v/(sqrt(R.DOT_PRODUCT(R,R))*sqrt(R.DOT_PRODUCT(V,V))),s);
-
     }
+
+
 }
 
 }
