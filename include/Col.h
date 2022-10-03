@@ -11,7 +11,7 @@ class Col
         int r;
         int g;
         int b;
-
+        class Col Mix(class Col A,class Col B,double amount);
     protected:
 
     private:

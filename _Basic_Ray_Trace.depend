@@ -4,7 +4,7 @@
 
 1664645617 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\vec3.h
 
-1664714897 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
+1664793673 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
 	<vector>
 	<math.h>
 	<graphics.h>
@@ -13,16 +13,16 @@
 	"Col.h"
 	"Light_Source.h"
 
-1664693929 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\sphere.cpp
+1664791162 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\sphere.cpp
 	"sphere.h"
 
-1664692281 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\sphere.h
+1664791141 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\sphere.h
 	"Vec3.h"
 	"Col.h"
 
-1664604373 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\col.h
+1664792431 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\col.h
 
-1664604143 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\col.cpp
+1664792876 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\col.cpp
 	"Col.h"
 
 1664646630 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\light_source.cpp

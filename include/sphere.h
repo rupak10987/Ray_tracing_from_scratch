@@ -11,6 +11,7 @@ class sphere
         class Vec3 Center;
         class Col sph_color;
         double specular;
+        double reflective;
     protected:
 
     private:

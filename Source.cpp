@@ -30,21 +30,23 @@ double view_port_H=1;
 double View_port_D=1;
 
 struct solution_T intersect_ray_sphere(class Vec3 O, class Vec3 D,class sphere* sph);
-class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max);
+class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max,int recursion_lim);
 class Vec3 CanvasToViewport(int x, int y);
 struct pixel screen_pos(int px,int py,int width,int height);
 double calculate_light(class Vec3 N,class Vec3 P,class Vec3 V,double s);
 struct Shadow_elem Closest_inersection(class Vec3 O,class Vec3 D,double t_min,double t_max);
+class Vec3 reflected_ray(class Vec3 R,class Vec3 N);
 int main()
 {   //sphere1
-    class Col col1(255,100,100);
+    class Col col1(255,0,0);
     class Vec3 C1(0,0,3);
     class sphere *sph1=new sphere(1,C1,col1);
+    sph1->reflective=0.9;
     SPHERES.push_back(sph1);
     delete &col1;//RELEASING memory
     delete &C1;//RELEASING memory
     //sphere2
-    class Col col2(100,255,100);
+    class Col col2(0,255,0);
     class Vec3 C2(2, 0, 4);
     class sphere *sph2=new sphere(1,C2,col2);
     sph2->specular=-1;//-1 for not specular
@@ -52,7 +54,7 @@ int main()
     delete &col2;//RELEASING memory
     delete &C2;//RELEASING memory
     //sphere3
-    class Col col3(100,255,255);
+    class Col col3(0,0,255);
     class Vec3 C3(-2, 0, 4);
     class sphere *sph3=new sphere(1,C3,col3);
     SPHERES.push_back(sph3);
@@ -88,7 +90,7 @@ int main()
         for(int j=-249;j<250;j++)//canvas Y
         {
             class Vec3 D(CanvasToViewport(i,j));//in range of[-1to1], the point the ray intersects the viewport
-            class Col col=TraceRay(O,D,(int)View_port_D,inf);//if the ray and any sphere collides this function will return the color of the sphere
+            class Col col=TraceRay(O,D,(int)View_port_D,inf,3);//if the ray and any sphere collides this function will return the color of the sphere
             struct pixel p=screen_pos(i,j,500,500);//canvas pos
             putpixel(p.X, p.Y, COLOR(col.r,col.g,col.b));
         }
@@ -140,7 +142,7 @@ struct Shadow_elem Closest_inersection(class Vec3 O,class Vec3 D,double t_min,do
    return shadow;
 };
 
-class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
+class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max,int recursion_lim)
 {
     struct Shadow_elem my_shadow=Closest_inersection(O,D,t_min,t_max);
     double closest_t=my_shadow.closest_TT;
@@ -173,12 +175,30 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max)
     new_col.b=(int)ceil(cc.z);
     if(new_col.b>255)
         new_col.b=255;
-    return new_col;
 
-    //return closest_sphere->sph_color;
+    //reflections
+    if(recursion_lim<=0)
+    return new_col;
+    class Col reflected_col;
+    reflected_col=TraceRay(P,reflected_ray(D.Direction_Vec(O,D),N),0.001,inf,(recursion_lim-1));
+    reflected_col=reflected_col.Mix(new_col,reflected_col,closest_sphere->reflective);
+    if(reflected_col.r>255)
+    reflected_col.r=255;
+    if(reflected_col.g>255)
+    reflected_col.g=255;
+    if(reflected_col.b>255)
+    reflected_col.b=255;
+    return reflected_col;
+
 
 }
 
+class Vec3 reflected_ray(class Vec3 R,class Vec3 N)
+{
+    class Vec3 Rt;
+    Rt=N.Direction_Vec(N.Scaler_Mul_Vec(2*N.DOT_PRODUCT(N,R),N),R);
+    return Rt;
+}
 double calculate_light(class Vec3 N,class Vec3 P,class Vec3 V,double s)
 {
 double intense=0;
