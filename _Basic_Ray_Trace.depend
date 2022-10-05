@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1664645640 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\vec3.cpp
+1664983061 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\src\vec3.cpp
 	"Vec3.h"
 
-1664645617 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\vec3.h
+1664982664 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\vec3.h
+	<math.h>
 
 1664793673 source:c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\source.cpp
 	<vector>

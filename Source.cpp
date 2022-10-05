@@ -23,7 +23,7 @@ struct Shadow_elem
 std::vector<class sphere*> SPHERES;
 std::vector<class Light_Source*> Lights;
 class Col Back_ground_color(255,255,255);
-class Vec3 O(0,0,0);
+class Vec3 O(-1,0,-3);
 double inf=100.0000000;
 double view_port_W=1;
 double view_port_H=1;
@@ -155,7 +155,7 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max,int recur
     P=O.addition_Vec(O,O.Scaler_Mul_Vec(closest_t,D));
     class Vec3 N;
     N=N.Direction_Vec(P,closest_sphere->Center);
-    N=N.Scaler_Div_Vec(sqrt(N.DOT_PRODUCT(N,N)),N);
+    N=N.Normalized_Vec(N);
     class Vec3 cc;
     class Vec3 col_to_vec;
     col_to_vec.x=closest_sphere->sph_color.r;
@@ -180,7 +180,7 @@ class Col TraceRay(class Vec3 O,class Vec3 D,double t_min,double t_max,int recur
     if(recursion_lim<=0)
     return new_col;
     class Col reflected_col;
-    reflected_col=TraceRay(P,reflected_ray(D.Direction_Vec(O,D),N),0.001,inf,(recursion_lim-1));
+    reflected_col=TraceRay(P,reflected_ray(D.Negate(D),N),0.001,inf,(recursion_lim-1));
     reflected_col=reflected_col.Mix(new_col,reflected_col,closest_sphere->reflective);
     if(reflected_col.r>255)
     reflected_col.r=255;
