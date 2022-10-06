@@ -83,11 +83,13 @@ int main()
 
 
 //rendering part
-    int gd = DETECT, gm, color;
-    initgraph(&gd, &gm, (const char*)"");
-    for(int i=-250;i<400;i++)//canvas X
+     int wid1=initwindow(1920, 1080);
+     setcurrentwindow(wid1);
+    //int gd = DETECT, gm, color;//gm
+    //initgraph(&gd, &gm, (const char*)"");//gm
+    for(int i=-1920/2;i<1920/2;i++)//canvas X
     {
-        for(int j=-249;j<250;j++)//canvas Y
+        for(int j=-1080/2;j<1080/2;j++)//canvas Y
         {
             class Vec3 D(CanvasToViewport(i,j));//in range of[-1to1], the point the ray intersects the viewport
             class Col col=TraceRay(O,D,(int)View_port_D,inf,3);//if the ray and any sphere collides this function will return the color of the sphere
