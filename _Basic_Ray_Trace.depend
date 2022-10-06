@@ -32,3 +32,36 @@
 1664646490 c:\users\user\desktop\4-1\thesis\basic_ray_proj\_basic_ray_trace\include\light_source.h
 	"Vec3.h"
 
+1665046003 source:e:\projects\ray_tracing_from_scratch\src\col.cpp
+	"Col.h"
+
+1665046003 e:\projects\ray_tracing_from_scratch\include\col.h
+
+1665046003 source:e:\projects\ray_tracing_from_scratch\src\light_source.cpp
+	"Light_Source.h"
+
+1665046003 e:\projects\ray_tracing_from_scratch\include\light_source.h
+	"Vec3.h"
+
+1665046003 e:\projects\ray_tracing_from_scratch\include\vec3.h
+	<math.h>
+
+1665057471 source:e:\projects\ray_tracing_from_scratch\src\sphere.cpp
+	"sphere.h"
+
+1665046003 e:\projects\ray_tracing_from_scratch\include\sphere.h
+	"Vec3.h"
+	"Col.h"
+
+1665046003 source:e:\projects\ray_tracing_from_scratch\src\vec3.cpp
+	"Vec3.h"
+
+1665057335 source:e:\projects\ray_tracing_from_scratch\source.cpp
+	<vector>
+	<math.h>
+	<graphics.h>
+	"Vec3.h"
+	"sphere.h"
+	"Col.h"
+	"Light_Source.h"
+

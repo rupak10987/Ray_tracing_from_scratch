@@ -10,8 +10,8 @@ sphere::sphere(double rad,class Vec3 center,class Col col)
     this->sph_color.r=col.r;
     this->sph_color.g=col.g;
     this->sph_color.b=col.b;
-    this->specular=100;
-    this->reflective=0.4;
+    this->specular=500;
+    this->reflective=0.1;
 }
 
 sphere::~sphere()

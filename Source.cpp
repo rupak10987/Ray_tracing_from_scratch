@@ -23,7 +23,7 @@ struct Shadow_elem
 std::vector<class sphere*> SPHERES;
 std::vector<class Light_Source*> Lights;
 class Col Back_ground_color(255,255,255);
-class Vec3 O(-1,0,-3);
+class Vec3 O(-1,0,0);
 double inf=100.0000000;
 double view_port_W=1;
 double view_port_H=1;
@@ -224,7 +224,7 @@ else
     }
     //shadow
     struct Shadow_elem m_shadow=Closest_inersection(P,L,0.001,t_max);
-    if(m_shadow.sph!=nullptr)
+   if(m_shadow.sph!=nullptr)
     {
         continue;
     }
