@@ -23,7 +23,9 @@ struct Shadow_elem
 std::vector<class sphere*> SPHERES;
 std::vector<class Light_Source*> Lights;
 class Col Back_ground_color(255,255,255);
-class Vec3 O(-1,0,0);
+class Vec3 O(0,0,-3);
+int _Window_Size_X=800;
+int _Window_Size_Y=500;
 double inf=100.0000000;
 double view_port_W=1;
 double view_port_H=1;
@@ -71,7 +73,7 @@ int main()
 
 
     //adding lights to scene phong reflection model
-    class Vec3 l(2, 1, 0);
+    class Vec3 l(0, 100, -1);
     class Light_Source* point_l=new Light_Source(0.9,point,l);
     l.x=0;l.y=0;l.z=0;
     class Light_Source* ambient_l=new Light_Source(0.5,ambient,l);
@@ -83,17 +85,17 @@ int main()
 
 
 //rendering part
-     int wid1=initwindow(1920, 1080);
+     int wid1=initwindow(_Window_Size_X, _Window_Size_Y);
      setcurrentwindow(wid1);
     //int gd = DETECT, gm, color;//gm
     //initgraph(&gd, &gm, (const char*)"");//gm
-    for(int i=-1920/2;i<1920/2;i++)//canvas X
+    for(int i=-_Window_Size_X;i<_Window_Size_X;i++)//canvas X
     {
-        for(int j=-1080/2;j<1080/2;j++)//canvas Y
+        for(int j=-_Window_Size_Y;j<_Window_Size_Y;j++)//canvas Y
         {
             class Vec3 D(CanvasToViewport(i,j));//in range of[-1to1], the point the ray intersects the viewport
-            class Col col=TraceRay(O,D,(int)View_port_D,inf,3);//if the ray and any sphere collides this function will return the color of the sphere
-            struct pixel p=screen_pos(i,j,500,500);//canvas pos
+            class Col col=TraceRay(O,D,(int)View_port_D,inf,2);//if the ray and any sphere collides this function will return the color of the sphere
+            struct pixel p=screen_pos(i,j,_Window_Size_X,_Window_Size_Y);//canvas pos
             putpixel(p.X, p.Y, COLOR(col.r,col.g,col.b));
         }
     }
@@ -228,7 +230,7 @@ else
     struct Shadow_elem m_shadow=Closest_inersection(P,L,0.001,t_max);
    if(m_shadow.sph!=nullptr)
     {
-        continue;
+      continue;
     }
 
     double n_dot_l=L.DOT_PRODUCT(N,L);
@@ -256,7 +258,8 @@ return intense;
 
 class Vec3 CanvasToViewport(int x, int y)
 {
-    class Vec3 view((x*view_port_W)/500, (y*view_port_H)/500, 1);
+    float aspect_ratio=(float)_Window_Size_X/(float)_Window_Size_Y;
+    class Vec3 view((x*view_port_W)/(_Window_Size_X), (y*view_port_H)/((float)_Window_Size_Y*aspect_ratio), 1);
     return view;
 
 }
