@@ -1,5 +1,7 @@
 # Ray_tracing_from_scratch
 </br>
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/reflection2.PNG?raw=true)
+
 Project Wiki:
 https://github.com/rupak10987/Ray_tracing_from_scratch/wiki#welcome-to-the-ray_tracing_from_scratch-wiki
 </br>
