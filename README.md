@@ -1,6 +1,6 @@
 # Ray_tracing_from_scratch
 </br>
-<img src="reflection2.png" alt="Italian Trulli">
+<img src="Output_images_at_different_dev_phase/reflection2.PNG" alt="Ray_traced_scene">
 </br>
 Project Wiki:
 https://github.com/rupak10987/Ray_tracing_from_scratch/wiki#welcome-to-the-ray_tracing_from_scratch-wiki
