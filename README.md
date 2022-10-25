@@ -1,5 +1,7 @@
 # Ray_tracing_from_scratch
 </br>
+![Ray_Traced_Scene](Output_images_at_different_dev_phase/reflection2.PNG)
+</br>
 Project Wiki:
 https://github.com/rupak10987/Ray_tracing_from_scratch/wiki#welcome-to-the-ray_tracing_from_scratch-wiki
 </br>
