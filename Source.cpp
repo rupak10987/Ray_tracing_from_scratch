@@ -223,17 +223,14 @@ else
     }
     else
     {
-    L=Lights[i]->pos;
+    L=Lights[i]->pos;//pos is the direction here
     t_max=inf;
     }
     //shadow
     struct Shadow_elem m_shadow=Closest_inersection(P,L,0.001,t_max);
-   if(m_shadow.sph!=nullptr)
+    if(m_shadow.sph==nullptr)
     {
-      continue;
-    }
-
-    double n_dot_l=L.DOT_PRODUCT(N,L);
+      double n_dot_l=L.DOT_PRODUCT(N,L);
     if(n_dot_l>0)
     {
         intense+=(Lights[i]->intensity * n_dot_l)/(sqrt(N.DOT_PRODUCT(N,N))*sqrt(L.DOT_PRODUCT(L,L)));
@@ -248,8 +245,7 @@ else
         double r_dot_v=R.DOT_PRODUCT(R,V);
         intense+=Lights[i]->intensity*pow(r_dot_v/(sqrt(R.DOT_PRODUCT(R,R))*sqrt(R.DOT_PRODUCT(V,V))),s);
     }
-
-
+    }
 }
 
 }
