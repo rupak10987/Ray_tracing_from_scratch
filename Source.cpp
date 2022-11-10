@@ -24,7 +24,7 @@ std::vector<class sphere*> SPHERES;
 std::vector<class Light_Source*> Lights;
 class Col Back_ground_color(255,255,255);
 class Vec3 O(0,0,-3);
-int _Window_Size_X=800;
+int _Window_Size_X=500;
 int _Window_Size_Y=500;
 double inf=100.0000000;
 double view_port_W=1;
